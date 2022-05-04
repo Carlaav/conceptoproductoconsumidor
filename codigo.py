@@ -1,10 +1,13 @@
 from queue import Queue
+from random import randint
 
 from threading import Thread
 
 import time
 
 # Crear cola
+max=randint(10,42)
+q=Queue(max)
 
 q = Queue(10)
 
@@ -23,6 +26,8 @@ def producer(name):
         print(f"{name} está produciendo el bollo {count}")
 
         count+=1
+        if count==max:
+            break
 
 def customer(name):
 
@@ -39,6 +44,8 @@ def customer(name):
         count+=1
 
         q.task_done() # Envía una señal después de comer
+        if count==max:
+            break
 
         time.sleep(1)
 
